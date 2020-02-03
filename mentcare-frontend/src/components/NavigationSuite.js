@@ -13,6 +13,7 @@ import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import { pages } from "../util/pages";
 
 const drawerWidth = 240;
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ClippedDrawer() {
   const classes = useStyles();
+  const [selectedPage, setSelectedPage] = React.useState(pages.INDIVIDUAL_CARE);
 
   return (
     <div className={classes.root}>
@@ -61,13 +63,19 @@ export default function ClippedDrawer() {
         <List>
           {["Individual Care", "Admin Reporting", "Alerts", "About"].map(
             (text, index) => (
-              <ListItem button key={text}>
+              <ListItem
+                button
+                key={text}
+                onClick={() => {
+                  setSelectedPage(index);
+                }}
+              >
                 <ListItemIcon>
-                  {index === 0 ? (
+                  {index === pages.INDIVIDUAL_CARE ? (
                     <AccessibilityIcon />
-                  ) : index === 1 ? (
+                  ) : index === pages.ADMIN_REPORTING ? (
                     <SupervisorAccountIcon />
-                  ) : index === 2 ? (
+                  ) : index === pages.ALERTS ? (
                     <ErrorIcon />
                   ) : (
                     <InfoIcon />
@@ -81,21 +89,15 @@ export default function ClippedDrawer() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
+        {selectedPage === pages.INDIVIDUAL_CARE ? (
+          <AccessibilityIcon />
+        ) : selectedPage === pages.ADMIN_REPORTING ? (
+          <SupervisorAccountIcon />
+        ) : selectedPage === pages.ALERTS ? (
+          <ErrorIcon />
+        ) : (
+          <InfoIcon />
+        )}
       </main>
     </div>
   );
