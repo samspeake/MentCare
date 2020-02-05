@@ -1,9 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
@@ -36,7 +33,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3)
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
+  iconMargin: {
+    marginRight: -20
+  }
 }));
 
 export default function ClippedDrawer() {
@@ -45,14 +45,6 @@ export default function ClippedDrawer() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            MentCare
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -71,7 +63,7 @@ export default function ClippedDrawer() {
                   setSelectedPage(index);
                 }}
               >
-                <ListItemIcon>
+                <ListItemIcon className={classes.iconMargin}>
                   {index === pages.INDIVIDUAL_CARE ? (
                     <AccessibilityIcon />
                   ) : index === pages.ADMIN_REPORTING ? (
@@ -92,7 +84,6 @@ export default function ClippedDrawer() {
                             ? "fontWeightBold"
                             : "fontWeightRegular"
                         }
-                        m={1}
                       >
                         {text}
                       </Box>
