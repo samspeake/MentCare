@@ -14,6 +14,7 @@ import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { pages } from "../util/pages";
+import Box from "@material-ui/core/Box";
 
 const drawerWidth = 240;
 
@@ -81,7 +82,23 @@ export default function ClippedDrawer() {
                     <InfoIcon />
                   )}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography>
+                      <Box
+                        fontWeight={
+                          index === selectedPage
+                            ? "fontWeightBold"
+                            : "fontWeightRegular"
+                        }
+                        m={1}
+                      >
+                        {text}
+                      </Box>
+                    </Typography>
+                  }
+                />
               </ListItem>
             )
           )}
