@@ -12,6 +12,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { pages } from "../util/pages";
 import Box from "@material-ui/core/Box";
+import WelcomePage from "./WelcomePage";
 
 const drawerWidth = 240;
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ClippedDrawer() {
   const classes = useStyles();
-  const [selectedPage, setSelectedPage] = React.useState(pages.INDIVIDUAL_CARE);
+  const [selectedPage, setSelectedPage] = React.useState(pages.WELCOME_PAGE);
 
   return (
     <div className={classes.root}>
@@ -97,7 +98,9 @@ export default function ClippedDrawer() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {selectedPage === pages.INDIVIDUAL_CARE ? (
+        {selectedPage === pages.WELCOME_PAGE ? (
+          <WelcomePage />
+        ) : selectedPage === pages.INDIVIDUAL_CARE ? (
           <AccessibilityIcon />
         ) : selectedPage === pages.ADMIN_REPORTING ? (
           <SupervisorAccountIcon />

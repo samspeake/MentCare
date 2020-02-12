@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import NavigationSuite from "./components/NavigationSuite";
+import ClippedDrawer from "./components/ClippedDrawer";
 import { makeStyles, CssBaseline } from "@material-ui/core";
 import ApplicationBar from "./components/ApplicationBar";
 
@@ -18,7 +18,7 @@ function App() {
       <div className={classes.root}>
         <CssBaseline />
         <ApplicationBar />
-        <NavigationSuite />
+        <ClippedDrawer />
       </div>
     </div>
   );
