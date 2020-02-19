@@ -13,6 +13,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { pages } from "../util/pages";
 import Box from "@material-ui/core/Box";
 import WelcomePage from "./WelcomePage";
+import IndividualCareDashboard from "./IndividualCareDashboard";
 
 const drawerWidth = 240;
 
@@ -101,7 +102,7 @@ export default function ClippedDrawer() {
         {selectedPage === pages.WELCOME_PAGE ? (
           <WelcomePage />
         ) : selectedPage === pages.INDIVIDUAL_CARE ? (
-          <AccessibilityIcon />
+          <IndividualCareDashboard />
         ) : selectedPage === pages.ADMIN_REPORTING ? (
           <SupervisorAccountIcon />
         ) : selectedPage === pages.ALERTS ? (
