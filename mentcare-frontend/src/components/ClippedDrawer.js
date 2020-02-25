@@ -13,7 +13,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { pages } from "../util/pages";
 import Box from "@material-ui/core/Box";
 import WelcomePage from "./WelcomePage";
-import IndividualCareDashboard from "./IndividualCareDashboard";
+import IndividualCareDashboard from "./dashboardComponents/IndividualCareDashboard";
 
 const drawerWidth = 240;
 
