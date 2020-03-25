@@ -1,0 +1,8 @@
+
+[
+    {"id":1,"description":"Technical Manager | Marquette 2020 ","first_name":"Holly","last_name":" Fortener","avatar":"https://i.ibb.co/Gdr3Wry/HollyPic.jpg"},
+    {"id":2,"description":"Frontend - CSS/HTML | Marquette 2020","first_name":"Jayne","last_name":" DePaolis","avatar":"https://i.ibb.co/X5dGj6f/JaynePic.jpg"},
+    {"id":3,"description":"Frontend - Framework/JS | Marquette 2021","first_name":"Sam","last_name":" Speake","avatar":"https://i.ibb.co/JdFrt0r/SamPic.jpg"},
+    {"id":4,"description":"Server | Marquette 2020","first_name":"Matthew","last_name":" Rubio","avatar":"https://i.ibb.co/s1Bxk4t/MattPic.jpg"},
+    {"id":5,"description":"Server/Batch | Marquette 2020","first_name":"Tommy","last_name":" Appleby","avatar":"https://i.ibb.co/PQrZ2yL/TommyPhi.jpg"}
+]
