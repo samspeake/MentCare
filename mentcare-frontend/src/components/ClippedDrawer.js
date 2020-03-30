@@ -14,7 +14,7 @@ import { pages } from "../util/pages";
 import Box from "@material-ui/core/Box";
 import WelcomePage from "./WelcomePage";
 import IndividualCareDashboard from "./dashboardComponents/IndividualCareDashboard";
-
+import About from "./About";
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -70,6 +70,8 @@ export default function ClippedDrawer() {
                     <AccessibilityIcon />
                   ) : index === pages.ADMIN_REPORTING ? (
                     <SupervisorAccountIcon />
+                  ) : index === pages.ABOUT ? (
+                    <About/>, <InfoIcon />
                   ) : index === pages.ALERTS ? (
                     <ErrorIcon />
                   ) : (
@@ -107,6 +109,8 @@ export default function ClippedDrawer() {
           <SupervisorAccountIcon />
         ) : selectedPage === pages.ALERTS ? (
           <ErrorIcon />
+        ) : selectedPage === pages.ABOUT ? (
+          <InfoIcon />, <About/> 
         ) : (
           <InfoIcon />
         )}
