@@ -7,26 +7,37 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+
 const useStyles = makeStyles({
-card: { maxWidth: 345, },
-media: { height: 200, }, });
-export default function PeopleCard({description, firstname, lastname, avatar}) {
-const classes = useStyles();
-return ( <
-Card className={classes.card}>
-<CardActionArea>
-<CardMedia className={classes.media}
-image={avatar} /> 
-<CardContent>
-<Typography gutterBottom variant= "h5" component= "h2">
-{firstname + "" + lastname}
-</Typography>
-<Typography variant="body2" color="textSecondary" component="p">
-{description} </Typography>
- </CardContent> 
-</CardActionArea>
-<CardActions>
-<Button href={avatar} size= "small" color="primary">
-Thumbnail Pic 
-</Button> </CardActions>
-</Card> ); }
+  card: { maxWidth: 345 },
+  media: { height: 200 }
+});
+
+export default function PeopleCard({
+  description,
+  firstname,
+  lastname,
+  avatar
+}) {
+  const classes = useStyles();
+  return (
+    <Card className={classes.card}>
+      <CardActionArea>
+        <CardMedia className={classes.media} image={avatar} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {firstname + "" + lastname}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {description}{" "}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button href={avatar} size="small" color="primary">
+          Thumbnail Pic
+        </Button>{" "}
+      </CardActions>
+    </Card>
+  );
+}
