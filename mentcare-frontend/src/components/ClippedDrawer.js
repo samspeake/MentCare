@@ -15,6 +15,7 @@ import Box from "@material-ui/core/Box";
 import WelcomePage from "./WelcomePage";
 import About from "./About";
 import IndividualCareDashboard from "./dashboardComponents/IndividualCareDashboard";
+import AdminReporting from "./AdminReporting";
 
 const drawerWidth = 240;
 
@@ -62,15 +63,13 @@ export default function ClippedDrawer() {
               <ListItem
                 button
                 key={text}
-                onClick={() => 
-                setSelectedPage(index)
-                }
+                onClick={() => setSelectedPage(index)}
               >
                 <ListItemIcon className={classes.iconMargin}>
                   {index === pages.INDIVIDUAL_CARE ? (
                     <AccessibilityIcon />
-                  ): index === pages.ABOUT ? (
-                    <About/>, <InfoIcon />
+                  ) : index === pages.ABOUT ? (
+                    ((<About />), (<InfoIcon />))
                   ) : index === pages.ADMIN_REPORTING ? (
                     <SupervisorAccountIcon />
                   ) : index === pages.ALERTS ? (
@@ -107,16 +106,14 @@ export default function ClippedDrawer() {
         ) : selectedPage === pages.INDIVIDUAL_CARE ? (
           <IndividualCareDashboard />
         ) : selectedPage === pages.ADMIN_REPORTING ? (
-          <SupervisorAccountIcon />
+          <AdminReporting />
         ) : selectedPage === pages.ALERTS ? (
           <ErrorIcon />
         ) : selectedPage === pages.ABOUT ? (
-          <InfoIcon />, <About/> 
-
+          ((<InfoIcon />), (<About />))
         ) : (
           <InfoIcon />
         )}
-        
       </main>
     </div>
   );
