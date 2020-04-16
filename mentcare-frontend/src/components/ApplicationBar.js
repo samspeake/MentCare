@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Button, Popover, TextField } from "@material-ui/core";
-import { users } from "../util/users";
 
 import { performLogin, performLogout } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import firebase from "../firebase";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch"
-    }
+      width: "25ch",
+    },
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   login: {
     position: "relative",
@@ -28,21 +28,34 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "auto"
-    }
-  }
+      width: "auto",
+    },
+  },
 }));
+
+var db = firebase.database();
 
 export default function ApplicationBar() {
   const classes = useStyles();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [loginId, setLoginId] = React.useState(null);
-  const [loginError, setLoginError] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [loginId, setLoginId] = useState(null);
+  const [loginError, setLoginError] = useState(false);
+  const [allUsers, setAllUsers] = useState(null);
 
-  const handleClick = event => {
+  useEffect(() => {
+    const dbRef = db.ref("database");
+    dbRef.on("value", (snapshot) => {
+      let collections = snapshot.val();
+      setAllUsers(collections.Employees);
+    });
+  }, []);
+
+  console.log(allUsers);
+
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -51,8 +64,8 @@ export default function ApplicationBar() {
   };
 
   const attemptLogin = () => {
-    const userLoggingIn = users.find(
-      account => account.id === parseInt(loginId)
+    const userLoggingIn = allUsers.find(
+      (account) => account.id === parseInt(loginId)
     );
     if (userLoggingIn) {
       dispatch(performLogin(userLoggingIn));
@@ -71,7 +84,7 @@ export default function ApplicationBar() {
         <Typography variant="h5" noWrap className={classes.title} align="left">
           MentCare
         </Typography>
-        {user.id ? (
+        {user.id !== null ? (
           <Button
             edge="end"
             color="inherit"
@@ -98,18 +111,18 @@ export default function ApplicationBar() {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "center"
+            horizontal: "center",
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "center"
+            horizontal: "center",
           }}
         >
           <form
             className={classes.root}
             noValidate
             autoComplete="off"
-            onSubmit={e => {
+            onSubmit={(e) => {
               e.preventDefault();
               attemptLogin();
             }}
@@ -120,7 +133,7 @@ export default function ApplicationBar() {
               label="HSA ID"
               variant="outlined"
               helperText={loginError ? "Incorrect login" : ""}
-              onChange={e => {
+              onChange={(e) => {
                 setLoginId(e.target.value);
                 setLoginError(false);
               }}

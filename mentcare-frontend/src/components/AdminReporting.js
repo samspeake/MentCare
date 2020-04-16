@@ -9,49 +9,49 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormHelperText
+  FormHelperText,
 } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   row: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   spacing: {
-    maring: theme.spacing(1)
+    maring: theme.spacing(1),
   },
   alignText: {
     position: "absolute",
     left: "40%",
-    top: "20%"
+    top: "20%",
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    marginTop: 10
+    marginTop: 10,
   },
   button: {
-    margin: theme.spacing(3)
-  }
+    margin: theme.spacing(3),
+  },
 }));
 
 export default function AdminReporting() {
   const classes = useStyles();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   const [selectedMonth, setSelectedMonth] = React.useState("");
 
-  const handleMonthChange = event => {
+  const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
 
   const [selectedType, setSelectedType] = React.useState("");
 
-  const handleTypeChange = event => {
+  const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
 
@@ -78,7 +78,7 @@ export default function AdminReporting() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {reportTimes.map(month => (
+                {reportTimes.map((month) => (
                   <MenuItem value={month}>{month}</MenuItem>
                 ))}
               </Select>
@@ -97,7 +97,7 @@ export default function AdminReporting() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {reportTypes.map(type => (
+                {reportTypes.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>
                 ))}
               </Select>

@@ -8,30 +8,30 @@ import DoctorDashboard from "./DoctorDashboard";
 import { useSelector } from "react-redux";
 import { rights } from "../../util/rights";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   row: {
     display: "flex",
     flexDirection: "row",
     margin: theme.spacing(1),
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   spacing: {
-    maring: theme.spacing(1)
+    maring: theme.spacing(1),
   },
   alignText: {
     position: "absolute",
     left: "40%",
-    top: "20%"
-  }
+    top: "20%",
+  },
 }));
 
 export default function IndividualCareDashboard() {
   const classes = useStyles();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   return user.rights === rights.NONE ? (
     <div className={classes.alignText}>
