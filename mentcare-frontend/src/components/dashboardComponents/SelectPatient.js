@@ -11,7 +11,9 @@ import {
   FormHelperText,
   CircularProgress,
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 import firebase from "../../firebase";
+import { selectPatient } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,17 +36,24 @@ export default function SelectPatient(props) {
   const classes = useStyles();
   const [selected, setSelected] = useState("");
   const [allPatients, setAllPatients] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const dbRef = db.ref("database");
     dbRef.on("value", (snapshot) => {
       let collections = snapshot.val();
-      setAllPatients(collections.Patients);
+      setAllPatients(Object.values(collections.Patients));
     });
   }, []);
 
   const handleChange = (event) => {
     setSelected(event.target.value);
+    let pa = allPatients.filter((p) => {
+      return p.Name === event.target.value;
+    });
+    if (pa.length > 0) {
+      dispatch(selectPatient(pa[0]));
+    }
   };
 
   return (
@@ -62,15 +71,12 @@ export default function SelectPatient(props) {
             <Select
               labelId="patient-select"
               id="patient-select-helper"
-              value={selected}
+              value={selected ? selected : ""}
               onChange={handleChange}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"demo patient1"}>Demo Patient 1</MenuItem>
-              <MenuItem value={"demo patient2"}>Demo Patient 2</MenuItem>
-              <MenuItem value={"demo patient3"}>Demo Patient 3</MenuItem>
+              {allPatients.map((p) => (
+                <MenuItem value={p.Name}>{p.Name}</MenuItem>
+              ))}
             </Select>
 
             <FormHelperText>

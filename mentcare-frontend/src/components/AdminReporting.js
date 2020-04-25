@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, Typography, Card, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { rights } from "../util/rights";
 import { reportTimes, reportTypes } from "../util/reports";
 import {
-  CardContent,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   FormHelperText,
 } from "@material-ui/core";
+import { CSVLink } from "react-csv";
+import firebase from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,21 +40,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var db = firebase.database();
+
 export default function AdminReporting() {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
+  const [allPatients, setAllPatients] = useState([]);
 
-  const [selectedMonth, setSelectedMonth] = React.useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
 
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
 
-  const [selectedType, setSelectedType] = React.useState("");
+  const [selectedType, setSelectedType] = useState("");
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
+
+  useEffect(() => {
+    const dbRef = db.ref("database");
+    dbRef.on("value", (snapshot) => {
+      let collections = snapshot.val();
+      setAllPatients(Object.values(collections.Patients));
+    });
+  }, []);
+
+  if (allPatients.length > 0) {
+    console.log([
+      Object.keys(allPatients[0]),
+      ...allPatients.map((p) => Object.values(p)),
+    ]);
+  }
 
   return user.rights < rights.DOCTOR ? (
     <div className={classes.alignText}>
@@ -107,13 +126,15 @@ export default function AdminReporting() {
             </FormControl>
           </div>
           <div>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              Export
-            </Button>
+            <CSVLink data={allPatients ? allPatients : []}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+              >
+                Export
+              </Button>
+            </CSVLink>
           </div>
         </div>
       </Card>

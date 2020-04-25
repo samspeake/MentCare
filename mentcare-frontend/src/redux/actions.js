@@ -1,14 +1,24 @@
-import { LOGIN, LOGOUT, SET_FILTER } from "./actionTypes";
+import { LOGIN, LOGOUT, SELECT_PATIENT, SET_FILTER } from "./actionTypes";
 
-export const performLogin = account => ({
+export const performLogin = (account) => ({
   type: LOGIN,
   payload: {
-    account
-  }
+    account,
+  },
 });
 
 export const performLogout = () => ({
-  type: LOGOUT
+  type: LOGOUT,
 });
 
-export const setFilter = filter => ({ type: SET_FILTER, payload: { filter } });
+export const selectPatient = (patient) => ({
+  type: SELECT_PATIENT,
+  payload: {
+    patient,
+  },
+});
+
+export const setFilter = (filter) => ({
+  type: SET_FILTER,
+  payload: { filter },
+});

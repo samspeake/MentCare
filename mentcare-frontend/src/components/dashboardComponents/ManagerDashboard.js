@@ -1,38 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Card,
   CardActions,
   Button,
   CardContent,
-  Typography
+  Typography,
+  Popover,
 } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { CSVLink } from "react-csv";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginRight: theme.spacing(2)
-  },
+const useStyles = makeStyles((theme) => ({
   actions: {
     display: "flex",
-    flexDirection: "row"
-  }
+    flexDirection: "row",
+  },
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
 }));
 
 export default function ManagerDashboard() {
   const classes = useStyles();
+  const patient = useSelector((state) => state.patient);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const handleClick2 = (event) => {};
 
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardContent>
         <Typography component="h6" variant="h6">
           Manager Options
         </Typography>
       </CardContent>
       <CardActions className={classes.actions}>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleClick}>
           Export Statistics
         </Button>
-        <Button variant="contained">Generate Patient Report</Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+        >
+          <Typography className={classes.root}>
+            Not enought data for statistical analysis.
+          </Typography>
+        </Popover>
+        <CSVLink data={[Object.keys(patient), Object.values(patient)]}>
+          <Button variant="contained" onClick={handleClick2}>
+            Generate Patient Report
+          </Button>
+        </CSVLink>
       </CardActions>
     </Card>
   );
