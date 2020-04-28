@@ -16,31 +16,34 @@ import WelcomePage from "./WelcomePage";
 import About from "./About";
 import IndividualCareDashboard from "./dashboardComponents/IndividualCareDashboard";
 import AdminReporting from "./AdminReporting";
+import Alerts from "./Alerts";
+import { alerts } from "../util/alerts";
+import { Badge } from "@material-ui/core";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   toolbar: theme.mixins.toolbar,
   iconMargin: {
-    marginRight: -20
-  }
+    marginRight: -20,
+  },
 }));
 
 export default function ClippedDrawer() {
@@ -53,7 +56,7 @@ export default function ClippedDrawer() {
         className={classes.drawer}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.drawerPaper,
         }}
       >
         <div className={classes.toolbar} />
@@ -73,7 +76,12 @@ export default function ClippedDrawer() {
                   ) : index === pages.ADMIN_REPORTING ? (
                     <SupervisorAccountIcon />
                   ) : index === pages.ALERTS ? (
-                    <ErrorIcon />
+                    <Badge
+                      badgeContent={alerts.length}
+                      color={alerts.length > 0 ? "error" : "secondary"}
+                    >
+                      <ErrorIcon />
+                    </Badge>
                   ) : (
                     <InfoIcon />
                   )}
@@ -108,7 +116,7 @@ export default function ClippedDrawer() {
         ) : selectedPage === pages.ADMIN_REPORTING ? (
           <AdminReporting />
         ) : selectedPage === pages.ALERTS ? (
-          <ErrorIcon />
+          <Alerts />
         ) : selectedPage === pages.ABOUT ? (
           ((<InfoIcon />), (<About />))
         ) : (
