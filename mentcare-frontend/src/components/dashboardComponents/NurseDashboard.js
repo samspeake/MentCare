@@ -8,17 +8,31 @@ import {
   Typography,
   Popover,
   TextField,
+  Backdrop,
+  Grid,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   actions: {
-    display: "flex",
+    display: "flex-wrap",
     flexDirection: "row",
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  grid: {
+    padding: theme.spacing(),
+  },
+  typography:{
+    padding:theme.spacing(2),
+    fontWeight:"bold",
+    border: ".5px dotted",
   },
   root: {
     "& > *": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(2),
       width: "25ch",
     },
   },
@@ -62,23 +76,34 @@ export default function NurseDashboard() {
         </Typography>
       </CardContent>
       <CardActions className={classes.actions}>
-        <Button variant="contained" color="primary" onClick={handleClick}>
+        <Button  variant="contained" color="primary" onClick={handleClick}>
           Edit Patient Records
         </Button>
+        <Backdrop className={classes.backdrop} 
+          open={open}
+          onClick={handleClose}>
+        </Backdrop>
         <Popover
           id={id}
           open={open}
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "center",
+            vertical: "bottom",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
+          <Grid
+          container
+          justify="flex-end"
+          direction="column"
+          className={classes.grid}
+          >
+        <Grid item>
           <form
             className={classes.root}
             noValidate
@@ -92,8 +117,11 @@ export default function NurseDashboard() {
               label="Enter record"
               defaultValue={patient.history}
               variant="outlined"
+              multiline
             />
           </form>
+          </Grid>
+          </Grid>
         </Popover>
         <Button variant="contained" onClick={handleClick2}>
           View Patient Records
@@ -104,15 +132,15 @@ export default function NurseDashboard() {
           anchorEl={anchorEl2}
           onClose={handleClose2}
           anchorOrigin={{
-            vertical: "center",
+            vertical: "bottom",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
-          <Typography className={classes.root}>{patient.history}</Typography>
+          <Typography className={classes.typography} >{patient.history}</Typography>
         </Popover>
       </CardActions>
     </Card>

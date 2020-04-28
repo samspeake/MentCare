@@ -8,6 +8,7 @@ import {
   Typography,
   Popover,
   TextField,
+  Backdrop,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { CSVLink } from "react-csv";
@@ -17,10 +18,17 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  grid: {
+    padding: theme.spacing(),
+  },
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: "200",
     },
   },
 }));
@@ -55,17 +63,21 @@ export default function DoctorDashboard() {
         <Button variant="contained" color="primary" onClick={handleClick}>
           Setup Consultation
         </Button>
+        <Backdrop className={classes.backdrop} 
+          open={open}
+          onClick={handleClose}>
+        </Backdrop>
         <Popover
           id={id}
           open={open}
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "center",
+            vertical: "bottom",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
@@ -78,7 +90,15 @@ export default function DoctorDashboard() {
               e.preventDefault();
             }}
           >
-            <TextField label="Enter date and time" variant="outlined" />
+            <TextField id="datetime-local" 
+            label="Enter date and time" 
+            variant="outlined"
+            type="datetime-local"
+            className={classes.root}
+            InputLabelProps={{
+              shrink:true,
+            }}
+           />
           </form>
         </Popover>
         <CSVLink data={[Object.keys(patient), Object.values(patient)]}>

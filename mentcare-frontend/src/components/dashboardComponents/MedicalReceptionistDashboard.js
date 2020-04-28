@@ -8,6 +8,8 @@ import {
   Typography,
   Popover,
   TextField,
+  Backdrop,
+  Grid,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
@@ -16,10 +18,23 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  grid: {
+    padding: theme.spacing(),
+  },
+  typography:{
+    padding:theme.spacing(1),
+    display:"flex",
+    fontWeight:"bold",
+    border: ".5px dotted",
+  },
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: "40ch",
     },
   },
 }));
@@ -65,20 +80,31 @@ export default function MedicalReceptionistDashboard() {
         <Button variant="contained" color="primary" onClick={handleClick}>
           Register Patient
         </Button>
+        <Backdrop className={classes.backdrop} 
+          open={open}
+          onClick={handleClose}>
+        </Backdrop>
         <Popover
           id={id}
           open={open}
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "center",
+            vertical: "bottom",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
+      <Grid
+          container
+          justify="flex-end"
+          direction="column"
+          className={classes.grid}
+          >
+        <Grid item>
           <form
             className={classes.root}
             noValidate
@@ -91,6 +117,13 @@ export default function MedicalReceptionistDashboard() {
               <TextField label={key} variant="outlined" />
             ))}
           </form>
+          </Grid>
+          <Grid item container justify="flex-end">
+            <Button variant="contained" onClick={handleClose}>
+              Register 
+            </Button>
+          </Grid>
+          </Grid>
         </Popover>
         <Button variant="contained" onClick={handleClick2}>
           View Patient Info
@@ -101,16 +134,16 @@ export default function MedicalReceptionistDashboard() {
           anchorEl={anchorEl2}
           onClose={handleClose2}
           anchorOrigin={{
-            vertical: "center",
+            vertical: "bottom",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
           {Object.values(patient).map((p) => (
-            <Typography className={classes.root}>{p}</Typography>
+            <Typography className={classes.typography}>{p}</Typography>
           ))}
         </Popover>
       </CardActions>

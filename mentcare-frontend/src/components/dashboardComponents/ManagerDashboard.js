@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
+  typography:{
+    padding:theme.spacing(2),
+    display:"flex",
+    fontWeight:"bold",
+    border: ".5px dotted",
+  },
   root: {
     "& > *": {
       margin: theme.spacing(1),
@@ -60,15 +66,15 @@ export default function ManagerDashboard() {
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "center",
-            horizontal: "center",
+            vertical: "bottom",
+            horizontal: "right",
           }}
           transformOrigin={{
-            vertical: "center",
+            vertical: "top",
             horizontal: "center",
           }}
         >
-          <Typography className={classes.root}>
+          <Typography className={classes.typography}>
             Not enought data for statistical analysis.
           </Typography>
         </Popover>

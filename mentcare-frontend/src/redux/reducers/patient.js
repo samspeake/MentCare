@@ -1,9 +1,9 @@
 import { SELECT_PATIENT } from "../actionTypes";
 
 const initialState = {
-  DOB: "",
+  DOB: "No Patient selected",
   gender: "",
-  history: "",
+  history: "No history to show",
   insurance: "",
   name: "",
   nextVisit: "",
@@ -17,14 +17,14 @@ export default function (state = initialState, action) {
       const { patient } = action.payload;
 
       return {
-        DOB: patient.DOB,
-        gender: patient.Gender,
-        history: patient.History,
-        insurance: patient.Insurance,
-        name: patient.Name,
-        nextVisit: patient.nextVisit,
-        patientEmail: patient.patientEmail,
-        phoneNum: patient.phoneNum,
+        DOB: "DOB: " + patient.DOB,
+        gender: "Gender: " + patient.Gender,
+        history: "Patient History: " + patient.History,
+        insurance: "Insurance DOB: " + patient.Insurance,
+        name: "Name: " + patient.Name,
+        nextVisit: "Next Visit: " + patient.nextVisit,
+        patientEmail: "Patient Email: " + patient.patientEmail,
+        phoneNum: "Phone Number: " + patient.phoneNum,
       };
     }
     default:
