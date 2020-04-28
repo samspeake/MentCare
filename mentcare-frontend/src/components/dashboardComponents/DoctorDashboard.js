@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
-  grid: {
-    padding: theme.spacing(),
-  },
   root: {
     "& > *": {
       margin: theme.spacing(1),

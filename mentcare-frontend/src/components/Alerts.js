@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     left: "40%",
     top: "20%",
   },
+  root:{
+    display: "flex",
+  },
 }));
 
 export default function Alerts() {
@@ -26,12 +29,13 @@ export default function Alerts() {
       </Typography>
     </div>
   ) : (
+    <div className={classes.root}>
     <div className="About">
       <Box fontSize="h6.fontSize" textAlign="center">
         No action is needed here, alerts live in the database so they'll
         automatically be dismissed when the issue is no longer present.
       </Box>
-      <Grid container spacing={10} style={{ padding: "24px" }}>
+      <Grid container spacing={10} style={{ margin:0, width: '100%', }}>
         {alerts.map((alert) => (
           <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
             <AlertCard
@@ -42,6 +46,7 @@ export default function Alerts() {
           </Grid>
         ))}
       </Grid>
+    </div>
     </div>
   );
 }

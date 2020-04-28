@@ -99,8 +99,7 @@ export default function NurseDashboard() {
         >
           <Grid
           container
-          justify="flex-end"
-          direction="column"
+          style={{ margin:0, width: '100%', }}
           className={classes.grid}
           >
         <Grid item>

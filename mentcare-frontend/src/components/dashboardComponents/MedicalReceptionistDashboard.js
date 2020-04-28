@@ -100,9 +100,8 @@ export default function MedicalReceptionistDashboard() {
         >
       <Grid
           container
-          justify="flex-end"
-          direction="column"
           className={classes.grid}
+          style={{ margin:0, width: '100%', }}
           >
         <Grid item>
           <form
@@ -118,7 +117,7 @@ export default function MedicalReceptionistDashboard() {
             ))}
           </form>
           </Grid>
-          <Grid item container justify="flex-end">
+          <Grid item container style={{ margin:0, width: '100%', }}>
             <Button variant="contained" onClick={handleClose}>
               Register 
             </Button>
